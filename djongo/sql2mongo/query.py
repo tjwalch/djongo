@@ -21,7 +21,7 @@ from sqlparse import tokens
 from sqlparse.sql import (
     Identifier, Parenthesis,
     Where,
-    Statement, Comparison, Token, TokenList, Values)
+    Statement, Comparison, Token, TokenList)
 from sqlparse.tokens import Keyword, Operator, Literal, Punctuation, Whitespace, Generic
 
 from .operators import OPERATOR_PRECEDENCE, AND_OR_NOT_SEPARATOR
@@ -369,8 +369,6 @@ class InsertQuery(DMLQuery):
                     else:
                         values.append(index)
                 self._values.append(values)
-            elif isinstance(tok, Values):
-                self._fill_values(statement=tok.tokens)
             elif tok.ttype in [Whitespace]:
                 continue
             elif not tok.match(tokens.Keyword, 'VALUES'):
